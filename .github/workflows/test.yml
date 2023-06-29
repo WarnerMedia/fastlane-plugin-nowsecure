@@ -1,0 +1,35 @@
+name: test
+
+# This workflow is triggered on pull requests opened against master
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Use the standard checkout action to pull down repo
+      - uses: actions/checkout@v2
+
+      # Use public setup Ruby action to set Ruby version & caching of Gems
+      - name: Setup Ruby And Gem Cache
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      # Run linter with RuboCop
+      - name: Run RuboCop
+        run: bundle exec rubocop
+
+      # Run tests with RSpec
+      - name: Run RSpec
+        run: bundle exec rspec
+
+      # Upload test results
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test-results
