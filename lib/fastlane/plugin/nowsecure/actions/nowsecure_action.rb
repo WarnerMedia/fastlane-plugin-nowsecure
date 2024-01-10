@@ -78,7 +78,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :nowsecure_endpoint,
             env_name: "NOWSECURE_ENDPOINT",
             description: "NowSecure Tenant Endpoint",
-            optional: false,
+            optional: true,
             default_value: "https://lab-api.nowsecure.com",
             type: String
         ]
