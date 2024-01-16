@@ -80,7 +80,7 @@ module Fastlane
             description: "NowSecure Tenant Endpoint",
             optional: true,
             default_value: "https://lab-api.nowsecure.com",
-            type: String
+            type: String)
         ]
       end
 
