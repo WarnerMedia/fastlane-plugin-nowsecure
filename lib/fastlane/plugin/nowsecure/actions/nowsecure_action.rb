@@ -23,11 +23,13 @@ module Fastlane
         nowsecure_group_id = params[:nowsecure_group_id]
         # File path of app to upload to NowSecure
         nowsecure_app_path = params[:nowsecure_app_path]
+        # the tenant endpoint for NowSecure
+        nowsecure_endpoint = params[:nowsecure_endpoint]
 
         UI.success("Uploading app to NowSecure")
         UI.success("This might take a few minutes. Please don't interrupt.")
         cmd = "curl --request POST \
-        --url \"https://lab-api.nowsecure.com/build/?group=#{nowsecure_group_id}\" \
+        --url \"#{nowsecure_endpoint}/build/?group=#{nowsecure_group_id}\" \
         --header \"Authorization: Bearer #{nowsecure_token}\" \
         --header \"Content-Type: application/binary\" \
         --header \"Cache-Control: no-cache\" \
@@ -37,9 +39,9 @@ module Fastlane
         `#{cmd}`
         # Check exit code
         if $?.exitstatus != 0
-          UI.shell_error!("NowSecure upload failed. Curl exit code #{$?.exitstatus}. See URL for meaning: https://everything.curl.dev/usingcurl/returns#available-exit-codes")
+          UI.shell_error!("🚫 NowSecure upload failed. Curl exit code #{$?.exitstatus}. See URL for meaning: https://everything.curl.dev/usingcurl/returns#available-exit-codes")
         end
-        UI.success("Successfully uploaded app to NowSecure")
+        UI.success("✅ Successfully uploaded app to NowSecure")
       end
 
       #####################################################
@@ -72,7 +74,13 @@ module Fastlane
             optional: false,
             verify_block: proc do |value|
               UI.user_error!("Could not find a file at '#{value}'") unless File.exist?(value)
-            end)
+            end),
+          FastlaneCore::ConfigItem.new(key: :nowsecure_endpoint,
+            env_name: "NOWSECURE_ENDPOINT",
+            description: "NowSecure Tenant Endpoint",
+            optional: true,
+            default_value: "https://lab-api.nowsecure.com",
+            type: String)
         ]
       end
 
