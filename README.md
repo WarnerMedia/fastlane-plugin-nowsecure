@@ -29,8 +29,8 @@ Key  | Environment Variable Equivalent | Description | Required?
 ------------- | ------------- | ------------- | -------------
 `nowsecure_token`  | `NOWSECURE_TOKEN` | The API token for your NowSecure account | YES
 `nowsecure_group_id`  | `NOWSECURE_GROUP_ID` | The Group ID for your NowSecure account | YES
-`nowsecure_app_path`  | `NOWSECURE_APP_PATH` | File path of app to upload to NowSecure` | YES
-`nowsecure_endpoint`  | `NOWSECURE_ENDPOINT` | NowSecure Tenant Endpoint` | NO
+`nowsecure_app_path`  | `NOWSECURE_APP_PATH` | File path of app to upload to NowSecure | YES
+`nowsecure_endpoint`  | `NOWSECURE_ENDPOINT` | NowSecure Tenant Endpoint | NO
 
 ## Example
 
